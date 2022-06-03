@@ -1,0 +1,82 @@
+{
+  "version": "17.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "broker-nlb-cdk.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "broker-nlb-cdk.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "broker-nlb-cdk": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://681921237057/us-west-2",
+      "properties": {
+        "templateFile": "broker-nlb-cdk.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::681921237057:role/cdk-hnb659fds-deploy-role-681921237057-us-west-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::681921237057:role/cdk-hnb659fds-cfn-exec-role-681921237057-us-west-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-681921237057-us-west-2/850963925e66f7fa3e6498b8b78cec5302b7f39f27b72d5acee934d0bc313eea.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "broker-nlb-cdk.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::681921237057:role/cdk-hnb659fds-lookup-role-681921237057-us-west-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "broker-nlb-cdk.assets"
+      ],
+      "metadata": {
+        "/broker-nlb-cdk/NetworkLB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "NetworkLB407CBF1D"
+          }
+        ],
+        "/broker-nlb-cdk/NetworkLB/Listener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "NetworkLBListener735A5D24"
+          }
+        ],
+        "/broker-nlb-cdk/NetworkLB/Listener/IpGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "NetworkLBListenerIpGroup849F160B"
+          }
+        ],
+        "/broker-nlb-cdk/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/broker-nlb-cdk/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/broker-nlb-cdk/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "broker-nlb-cdk"
+    }
+  }
+}

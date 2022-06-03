@@ -1,0 +1,127 @@
+{
+ "Resources": {
+  "NetworkLB407CBF1D": {
+   "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+   "Properties": {
+    "LoadBalancerAttributes": [
+     {
+      "Key": "deletion_protection.enabled",
+      "Value": "false"
+     }
+    ],
+    "Name": "zalando-cdk-demo-nlb",
+    "Scheme": "internet-facing",
+    "Subnets": [
+     "subnet-e6986a80",
+     "subnet-817064c8",
+     "subnet-5a20a901"
+    ],
+    "Type": "network"
+   },
+   "Metadata": {
+    "aws:cdk:path": "broker-nlb-cdk/NetworkLB/Resource"
+   }
+  },
+  "NetworkLBListener735A5D24": {
+   "Type": "AWS::ElasticLoadBalancingV2::Listener",
+   "Properties": {
+    "DefaultActions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "NetworkLBListenerIpGroup849F160B"
+      },
+      "Type": "forward"
+     }
+    ],
+    "LoadBalancerArn": {
+     "Ref": "NetworkLB407CBF1D"
+    },
+    "Port": 5671,
+    "Protocol": "TCP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "broker-nlb-cdk/NetworkLB/Listener/Resource"
+   }
+  },
+  "NetworkLBListenerIpGroup849F160B": {
+   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+   "Properties": {
+    "Name": "0c09-41b5-4fcd-a498-8f72af9efe83",
+    "Port": 5671,
+    "Protocol": "TCP",
+    "TargetGroupAttributes": [
+     {
+      "Key": "deregistration_delay.connection_termination.enabled",
+      "Value": "true"
+     },
+     {
+      "Key": "deregistration_delay.timeout_seconds",
+      "Value": "30"
+     }
+    ],
+    "Targets": [
+     {
+      "Id": "172.31.41.61",
+      "Port": 5671
+     },
+     {
+      "Id": "172.31.2.164",
+      "Port": 5671
+     },
+     {
+      "Id": "172.31.29.69",
+      "Port": 5671
+     }
+    ],
+    "TargetType": "ip",
+    "VpcId": "vpc-0eb81868"
+   },
+   "Metadata": {
+    "aws:cdk:path": "broker-nlb-cdk/NetworkLB/Listener/IpGroup/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WOMQ+CMBCFf4t7qQQnVx1cjDHobo5y4klpTXuVGMJ/tyhNdLr3ve+GV8gil/kCep+pus00VXI4MahWlOhtcApFdBfU4JmUtlBXoMEoMs2zkMMBubeu3cd+8+nRie3V/HH6Ic9oZp/y7M7gGuSds+Ex6R8cJ05TRnF88c2a5Uqu4+i7J8pcMEwdyvJ73wNHawfQAAAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "broker-nlb-cdk/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,20 @@
+{
+  "version": "17.0.0",
+  "files": {
+    "850963925e66f7fa3e6498b8b78cec5302b7f39f27b72d5acee934d0bc313eea": {
+      "source": {
+        "path": "broker-nlb-cdk.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "681921237057-us-west-2": {
+          "bucketName": "cdk-hnb659fds-assets-681921237057-us-west-2",
+          "objectKey": "850963925e66f7fa3e6498b8b78cec5302b7f39f27b72d5acee934d0bc313eea.json",
+          "region": "us-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::681921237057:role/cdk-hnb659fds-file-publishing-role-681921237057-us-west-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

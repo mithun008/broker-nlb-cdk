@@ -1,0 +1,144 @@
+cfn_target_group = elbv2.CfnTargetGroup(self, "MyCfnTargetGroup",
+    health_check_enabled=False,
+    health_check_interval_seconds=123,
+    health_check_path="healthCheckPath",
+    health_check_port="healthCheckPort",
+    health_check_protocol="healthCheckProtocol",
+    health_check_timeout_seconds=123,
+    healthy_threshold_count=123,
+    ip_address_type="ipAddressType",
+    matcher=elbv2.CfnTargetGroup.MatcherProperty(
+        grpc_code="grpcCode",
+        http_code="httpCode"
+    ),
+    name="name",
+    port=123,
+    protocol="protocol",
+    protocol_version="protocolVersion",
+    tags=[CfnTag(
+        key="key",
+        value="value"
+    )],
+    target_group_attributes=[elbv2.CfnTargetGroup.TargetGroupAttributeProperty(
+        key="key",
+        value="value"
+    )],
+    targets=[elbv2.CfnTargetGroup.TargetDescriptionProperty(
+        id="id",
+
+        # the properties below are optional
+        availability_zone="availabilityZone",
+        port=123
+    )],
+    target_type="targetType",
+    unhealthy_threshold_count=123,
+    vpc_id="vpcId"
+)
+
+
+listener.add_targets(
+                'Ip',
+                target_group_name=broker_id[-32:],
+                port=5671,
+                targets=tgList
+
+            )
+
+
+from aws_cdk import aws_elasticloadbalancingv2 as elbv2
+
+cfn_listener = elbv2.CfnListener(self, "MyCfnListener",
+    default_actions=[elbv2.CfnListener.ActionProperty(
+        type="type",
+
+        # the properties below are optional
+        authenticate_cognito_config=elbv2.CfnListener.AuthenticateCognitoConfigProperty(
+            user_pool_arn="userPoolArn",
+            user_pool_client_id="userPoolClientId",
+            user_pool_domain="userPoolDomain",
+
+            # the properties below are optional
+            authentication_request_extra_params={
+                "authentication_request_extra_params_key": "authenticationRequestExtraParams"
+            },
+            on_unauthenticated_request="onUnauthenticatedRequest",
+            scope="scope",
+            session_cookie_name="sessionCookieName",
+            session_timeout="sessionTimeout"
+        ),
+        authenticate_oidc_config=elbv2.CfnListener.AuthenticateOidcConfigProperty(
+            authorization_endpoint="authorizationEndpoint",
+            client_id="clientId",
+            client_secret="clientSecret",
+            issuer="issuer",
+            token_endpoint="tokenEndpoint",
+            user_info_endpoint="userInfoEndpoint",
+
+            # the properties below are optional
+            authentication_request_extra_params={
+                "authentication_request_extra_params_key": "authenticationRequestExtraParams"
+            },
+            on_unauthenticated_request="onUnauthenticatedRequest",
+            scope="scope",
+            session_cookie_name="sessionCookieName",
+            session_timeout="sessionTimeout"
+        ),
+        fixed_response_config=elbv2.CfnListener.FixedResponseConfigProperty(
+            status_code="statusCode",
+
+            # the properties below are optional
+            content_type="contentType",
+            message_body="messageBody"
+        ),
+        forward_config=elbv2.CfnListener.ForwardConfigProperty(
+            target_groups=[elbv2.CfnListener.TargetGroupTupleProperty(
+                target_group_arn="targetGroupArn",
+                weight=123
+            )],
+            target_group_stickiness_config=elbv2.CfnListener.TargetGroupStickinessConfigProperty(
+                duration_seconds=123,
+                enabled=False
+            )
+        ),
+        order=123,
+        redirect_config=elbv2.CfnListener.RedirectConfigProperty(
+            status_code="statusCode",
+
+            # the properties below are optional
+            host="host",
+            path="path",
+            port="port",
+            protocol="protocol",
+            query="query"
+        ),
+        target_group_arn="targetGroupArn"
+    )],
+    load_balancer_arn="loadBalancerArn",
+
+    # the properties below are optional
+    alpn_policy=["alpnPolicy"],
+    certificates=[elbv2.CfnListener.CertificateProperty(
+        certificate_arn="certificateArn"
+    )],
+    port=123,
+    protocol="protocol",
+    ssl_policy="sslPolicy"
+)
+
+
+            cfn_target_group = _elbv2.CfnTargetGroup(self, "Ip",
+
+                                                     ip_address_type="ipAddressType",
+
+                                                     name=broker_id[-32:],
+                                                     port=5671,
+                                                     protocol="protocol",
+                                                     target_group_attributes=[_elbv2.CfnTargetGroup.TargetGroupAttributeProperty(
+                                                         key="deregistration_delay.connection_termination.enabled",
+                                                         value="true"
+                                                     )],
+
+
+                                                     )
+            # listener.add_target_groups(cfn_target_group)
+            listener.add_action(_id="Ip",action=cfn_target_group)
