@@ -1,8 +1,9 @@
-
 # Welcome to your CDK Python project!
 
-You should explore the contents of this project. It demonstrates a CDK app with an instance of a stack (`broker_nlb_cdk_stack`)
-which contains an Amazon SQS queue that is subscribed to an Amazon SNS topic.
+##Prerequisite
+This package uses AWS CDK for deployment of resources. Please refer to these [instructions](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html) for installing CDK.
+
+##Instructions
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
@@ -37,29 +38,17 @@ Once the virtualenv is activated, you can install the required dependencies.
 $ pip install -r requirements.txt
 ```
 
-At this point you can now synthesize the CloudFormation template for this code.
+Package contains a file cdk.context.json. It has two properties - brokerid and vpcid. The brokerid represents the RabbitMQ cluster that you currently for which we need to create a NLB facade. The vpcid represents the vpc in which the broker vpc endpoint is created or simply that vpc that you used when deploying the broker.
 
-```
-$ cdk synth
-```
+1. Update the file with your broker id and vpc id.
+1. At this point you can now synthesize the CloudFormation template for this code.
 
-You can now begin exploring the source code, contained in the hello directory.
-There is also a very trivial test included that can be run like this:
-
-```
-$ pytest
-```
-
-To add additional dependencies, for example other CDK libraries, just add to
-your requirements.txt file and rerun the `pip install -r requirements.txt`
-command.
-
-## Useful commands
-
- * `cdk ls`          list all stacks in the app
- * `cdk synth`       emits the synthesized CloudFormation template
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk docs`        open CDK documentation
-
-Enjoy!
+    ```
+    $ cdk synth
+    ```
+    You will notice that it will output a cloudformation template that will provision the NLB.
+1. You can now run the cdk deployment to create NLB.
+    ```
+    cdk deploy
+    ```
+1. The output of the deployment will show a property NLBArn. The value of this property will be used in the SAM template that creates the resources needed to update the target group of this NLB during new broker deployment.

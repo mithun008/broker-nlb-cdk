@@ -5,7 +5,9 @@ from aws_cdk import (
     aws_iam as iam,
     aws_elasticloadbalancingv2 as _elbv2,
     aws_elasticloadbalancingv2_targets as targets,
-    aws_ec2 as _ec2
+    aws_ec2 as _ec2,
+    CfnOutput
+    
 )
 
 import boto3
@@ -102,3 +104,4 @@ class BrokerNlbCdkStack(Stack):
                 value="30"
             )]
             
+        CfnOutput(self, "NLBArn", value=nlb.load_balancer_arn)
